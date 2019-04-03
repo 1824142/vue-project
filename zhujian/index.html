@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		<div id="warp">
+			<my-header 
+				:todo="message" 
+				:children-message="headerMessage" 
+				:children-text="headerText"
+				v-on:children-message="headerMessage"
+			>
+			
+			</my-header>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript">
+		Vue.component("my-header", {
+			name: "my-header",
+			template: `<div class='my-header'>
+						<div class='my-header-left'>
+							<a href="#" @click="$emit('childrenMessage',headerMessage)">登录</a>
+							<a href="#">注册</a>
+						</div>
+						<div class="my-header-right">
+							<a href='#'>登录</a>
+							<a href='#' @click="headlePropsDate">注册</a>
+						</div>
+						<div class='my-header-props'>
+							{{ todo }} <br/>
+							{{ childrenMessage }} <br/>
+							{{ childrenText }} <br/>
+						</div>
+						</div>
+					`,
+
+					computed: {
+		
+					},
+					methods: {
+						handleFunction: function() {
+							console.log(this);
+							console.log(this.message);
+							this.flag = !this.flag;
+		
+						},
+						handleParent: function(){
+							this.message = data;
+						},
+						handlePropsData: function(){
+							console.log(this.todo,"todo");
+							//直接操作props数据，(也就是重父作用域传过来的)，会报错
+							this.propsDataChildren=this.todo;
+							this.propsDataChildren=this.headerMesage;
+							
+						}
+					},
+					props: ["todo", "childrenMessage", "childrenText"]
+
+			})
+
+		var vm = new Vue({
+			el: "#warp",
+			data: function() {
+				return {
+					message: "hello vue",
+					headerMessage: "我是myHerder",
+					headerText: "哈哈哈哈！",
+					flag: true,
+				}
+			}
+		})
+	</script>
+
+</html>
